@@ -28,7 +28,7 @@ void batchg_zgemv(
 	/* Local variables */
 	char func_name[15] = "batchg_zgemv";
 	int group_iter = 0;
-	int batch_count = 0; // How many subproblems solved so far
+	int offset = 0; // How many subproblems solved so far
 	int end_of_group = 0; // End of the current group
 	int i = 0;
 
@@ -46,7 +46,7 @@ void batchg_zgemv(
 		{
 			end_of_group = end_of_group + group_size[group_iter];
 			xerbla_batch(func_name, BBLAS_ERR_GROUP_SIZE, group_iter);
-			for(i = batch_count; i < end_of_group; i++)
+			for(i = offset; i < end_of_group; i++)
 			{
 				info[i] = BBLAS_ERR_GROUP_SIZE;
 			}
@@ -58,20 +58,20 @@ void batchg_zgemv(
 			trans[group_iter];
 			m[group_iter], n[group_iter],
 			alpha[group_iter],
-			arrayA+batch_count, lda[group_iter],
-			arrayx+batch_count, incx[group_iter],
+			arrayA+offset, lda[group_iter],
+			arrayx+offset, incx[group_iter],
 			beta[group_iter],
-			arrayy+batch_count, incy[group_iter],
-			group_size[group_iter], info+batch_count);
+			arrayy+offset, incy[group_iter],
+			group_size[group_iter], info+offset);
 
         /* Successful */
-		for(i = batch_count; i < end_of_group; i++)
+		for(i = offset; i < end_of_group; i++)
 		{
 			info[i] = BBLAS_SUCCESS;
 		}
 
-		/* Update batch_count */
-		batch_count += group_size[group_iter];
+		/* Update offset */
+		offset += group_size[group_iter];
 	} // End of group loop
 }
 #undef COMPLEX
