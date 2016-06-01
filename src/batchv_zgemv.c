@@ -23,7 +23,6 @@ void batchv_zgemv(
 	const BBLAS_Complex64_t *beta,
 	BBLAS_Complex64_t **arrayy, const int *incy,
 	const int batch_count, int* info)
-	)
 {
 	/* Local variables */
 	int first_index = 0;
