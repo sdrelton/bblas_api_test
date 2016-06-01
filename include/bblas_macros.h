@@ -39,6 +39,11 @@
 #define BBLAS_ERR_TRANS             -12 //!< Error in trans
 #define BBLAS_ERR_SIDE              -13 //!< Error in side
 #define BBLAS_ERR_DIAG              -14 //!< Error in diag
+#define BBLAS_ERR_INCX              -15 //!< Error in incx
+#define BBLAS_ERR_INCY              -16 //!< Error in incy
+/* Group error codes */
+#define BBLAS_ERR_GROUP_COUNT       -30 //!<Error in group_count
+#define BBLAS_ERR_GROUP_SIZE        -31 //!<Error in group_size
 
 #define NAME_LENGTH 30 //!< Maximum length of routine name e.g. zgemm_batch
 
