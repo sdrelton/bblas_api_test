@@ -58,11 +58,11 @@ void batchg_zgemv(
 			trans[group_iter];
 			m[group_iter], n[group_iter],
 			alpha[group_iter],
-			arrayA+group_size[group_iter], lda[group_iter],
-			arrayx+group_size[group_iter], incx[group_iter],
+			arrayA+batch_count, lda[group_iter],
+			arrayx+batch_count, incx[group_iter],
 			beta[group_iter],
-			arrayy+group_size[group_iter], incy[group_iter],
-			group_size[group_iter], info+group_size[group_iter]);
+			arrayy+batch_count, incy[group_iter],
+			group_size[group_iter], info+batch_count);
 
         /* Successful */
 		for(i = batch_count; i < end_of_group; i++)
