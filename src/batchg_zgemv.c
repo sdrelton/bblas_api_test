@@ -14,6 +14,7 @@
 #include "bblas_z.h"
 
 #define COMPLEX
+
 void batchg_zgemv(
 	const enum BBLAS_TRANS *trans,
 	const int *m, const int *n,
@@ -55,7 +56,7 @@ void batchg_zgemv(
 
 		/* Call fixed batch computation on the group */
 		batchf_zgemv(
-			trans[group_iter];
+			trans[group_iter],
 			m[group_iter], n[group_iter],
 			alpha[group_iter],
 			arrayA+offset, lda[group_iter],

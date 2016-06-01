@@ -58,7 +58,7 @@ void batchv_zgemv(
 		}
 
 		/* Column major */
-		if ((lda[batch_iter] < 1) && (lda[batch_iter] < m))
+		if ((lda[batch_iter] < 1) && (lda[batch_iter] < m[batch_iter]))
 		{
 			xerbla_batch(func_name, BBLAS_ERR_LDA, batch_iter);
 			info[batch_iter] = BBLAS_ERR_LDA;
@@ -81,10 +81,10 @@ void batchv_zgemv(
 			BblasColMajor,
 			trans[batch_iter],
 			m[batch_iter], n[batch_iter],
-			alpha[batch_iter],
+			CBLAS_SADDR( alpha[batch_iter] ),
 			arrayA[batch_iter], lda[batch_iter],
 			arrayx[batch_iter], incx[batch_iter],
-			beta[batch_iter],
+			CBLAS_SADDR( beta[batch_iter] ),
 			arrayy[batch_iter], incy[batch_iter]);
 		/* Successful */
 		info[batch_iter] = BBLAS_SUCCESS;

@@ -58,8 +58,7 @@ void batchf_zgemv(
 	const BBLAS_Complex64_t **arrayx, const int incx,
 	const BBLAS_Complex64_t beta,
 	BBLAS_Complex64_t **arrayy, const int incy,
-	const int batch_count, int* info)
-	);
+	const int batch_count, int* info);
 
 void batchg_zgemv(
 	const enum BBLAS_TRANS *trans,

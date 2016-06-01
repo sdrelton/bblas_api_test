@@ -24,7 +24,6 @@ void batchf_zgemv(
 	const BBLAS_Complex64_t beta,
 	BBLAS_Complex64_t **arrayy, const int incy,
 	const int batch_count, int* info)
-	)
 {
 	/* Local variables */
 	int first_index = 0;
@@ -100,10 +99,10 @@ void batchf_zgemv(
 			BblasColMajor,
 			trans,
 			m, n,
-			alpha,
+			CBLAS_SADDR( alpha ),
 			arrayA[batch_iter], lda,
 			arrayx[batch_iter], incx,
-			beta,
+			CBLAS_SADDR( beta ),
 			arrayy[batch_iter], incy);
 		/* Successful */
 		info[batch_iter] = BBLAS_SUCCESS;
