@@ -1,6 +1,7 @@
 #include "example_z.h"
 #include <math.h>
 #include <stdlib.h>
+#include <lapacke.h>
 
 void random_zvec(int len, BBLAS_Complex64_t *vec)
 {
