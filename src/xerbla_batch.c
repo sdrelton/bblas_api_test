@@ -106,6 +106,24 @@ int xerbla_batch(char *func_name, int error, int subproblem_ind)
             fprintf(stderr, "BBLAS ERROR in function %s caused by DIAG[%d].\n",func_name,subproblem_ind);
             return(0);
             break;
+    	case BBLAS_ERR_INCX:
+			fprintf(stderr, "BBLAS ERROR in function %s caused by INCX[%d].\n", func_name, subproblem_ind);
+			return(0);
+			break;
+    	case BBLAS_ERR_INCY:
+			fprintf(stderr, "BBLAS ERROR in function %s caused by INCY[%d].\n", func_name, subproblem_ind);
+			return(0);
+			break;
+	    case BBLAS_ERR_GROUP_SIZE:
+		    fprintf(stderr, "BBLAS ERROR in function %s caused by GROUP_SIZE.\n", func_name);
+			return(EXIT_SUCCESS);
+            /* To terminate replace "break;" with "exit(EXIT_FAILURE);" */
+            break;
+	    case BBLAS_ERR_GROUP_COUNT:
+		    fprintf(stderr, "BBLAS ERROR in function %s caused by GROUP_COUNT[%d].\n", func_name, subproblem_ind);
+			return(EXIT_SUCCESS);
+            /* To terminate replace "break;" with "exit(EXIT_FAILURE);" */
+            break;
         default:
             fprintf(stderr, "BBLAS ERROR in function %s caused by undefined error code.\n",func_name);
             exit(EXIT_FAILURE);

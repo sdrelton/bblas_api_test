@@ -22,7 +22,7 @@ void batch_zgemv(
 	const BBLAS_Complex64_t **arrayx, const int *incx,
 	const BBLAS_Complex64_t *beta,
 	BBLAS_Complex64_t **arrayy, const int *incy,
-	const int batch_count, enum BBLAS_OPTS batch_opts,
+	const int batch_count, const enum BBLAS_OPTS batch_opts,
 	int* info)
 {
 	/* Local variables */

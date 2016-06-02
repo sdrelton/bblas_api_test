@@ -25,7 +25,7 @@ void batchv_zgemv(
 	const int batch_count, int* info)
 {
 	/* Local variables */
-	int first_index = 0;
+//	int first_index = 0;
 	int batch_iter = 0;
 	char func_name[15] = "batchv_zgemv";
 
