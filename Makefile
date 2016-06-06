@@ -1,7 +1,7 @@
 include ./make.inc
 
 BBLAS_SRC_LIST   = batchf_zgemv.c batchv_zgemv.c batchg_zgemv.c batch_zgemv.c \
-	 			   batchf_zgemm.c batchv_zgemm.c batchg_zgemm.c batch_zgemm.c \
+				   batchf_zgemm.c batchv_zgemm.c batchg_zgemm.c batch_zgemm.c \
 		           xerbla_batch.c
 
 BBLAS_SRC=$(addprefix $(BBLAS_SRC_DIR)/, $(BBLAS_SRC_LIST))
