@@ -34,7 +34,46 @@
 /*
  * Declarations of level 3 BATCH BLAS  - alphabetical order
  */
+void batch_zgemm(
+    const enum BBLAS_TRANS *transA, const enum BBLAS_TRANS *transB,
+    const int *M,  const int *N, const int *K,
+    const BBLAS_Complex64_t *alpha,
+    const BBLAS_Complex64_t **arrayA, const int *lda,
+    const BBLAS_Complex64_t **arrayB,
+    const int *ldb, const BBLAS_Complex64_t *beta,
+    BBLAS_Complex64_t **arrayC, const int *ldc, const int batch_count,
+    enum BBLAS_OPTS batch_opts, int *info);
 
+void batchf_zgemm(
+    const enum BBLAS_TRANS transA, const enum BBLAS_TRANS transB,
+    const int M,  const int N, const int K,
+    const BBLAS_Complex64_t alpha,
+    const BBLAS_Complex64_t **arrayA, const int lda,
+    const BBLAS_Complex64_t **arrayB,
+    const int ldb, const BBLAS_Complex64_t beta,
+    BBLAS_Complex64_t **arrayC, const int ldc, 
+    const int batch_count, int *info);
+
+void batchg_zgemm(
+    const enum BBLAS_TRANS *transA, const enum BBLAS_TRANS *transB,
+    const int *M,  const int *N, const int *K,
+    const BBLAS_Complex64_t *alpha,
+    const BBLAS_Complex64_t **arrayA, const int *lda,
+    const BBLAS_Complex64_t **arrayB, const int *ldb, 
+    const BBLAS_Complex64_t *beta,
+    BBLAS_Complex64_t **arrayC, const int *ldc, 
+	const int group_count, const int *group_size,
+    int *info);
+
+void batchv_zgemm(
+    const enum BBLAS_TRANS *transA, const enum BBLAS_TRANS *transB,
+    const int *M,  const int *N, const int *K,
+    const BBLAS_Complex64_t *alpha,
+    const BBLAS_Complex64_t **arrayA, const int *lda,
+    const BBLAS_Complex64_t **arrayB, const int *ldb, 
+    const BBLAS_Complex64_t *beta,
+    BBLAS_Complex64_t **arrayC, const int *ldc, 
+    const int batch_count, int *info);
 
 /*
  * Declarations of level 2 BATCH BLAS - alphabetical order

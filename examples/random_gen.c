@@ -196,3 +196,150 @@ void set_params_variable_zgemv(struct zgemv_batchv_example *zgemv_example)
 	}
 	zgemv_example->incy = incy;
 }
+
+void set_params_fixed_zgemm(struct zgemm_batchf_example *zgemm_example)
+{
+    int i;
+    int batch_count;
+    int m;
+    int n;
+    int k;
+    int lda;
+    int ldb;
+ 
+	batch_count = rand() % 50;
+	zgemm_example->batch_count = batch_count;
+	zgemm_example->transA = rand() % 3+111;
+	zgemm_example->transB = rand() % 3+111;
+	m = rand() % 200;
+	zgemm_example->m = m;
+	n = rand() % 200;
+	zgemm_example->n = n;
+	k = rand() % 200;
+	zgemm_example->k = k;
+	zgemm_example->alpha = randz();
+	zgemm_example->beta = randz();
+
+    /* arrayA */
+	BBLAS_Complex64_t **arrayA =
+		(BBLAS_Complex64_t**) malloc(sizeof(BBLAS_Complex64_t*)*batch_count);
+	for (i = 0; i < batch_count; i++)
+	{
+		arrayA[i] = (BBLAS_Complex64_t*) malloc(sizeof(BBLAS_Complex64_t)*m*k);
+		random_mat(m, k, arrayA[i]);
+	}
+	zgemm_example->arrayA = arrayA;
+	if (zgemm_example->transA == BblasNoTrans)
+	{
+		lda = m;
+	}
+	else
+	{
+		lda = k;
+	}
+	zgemm_example->lda = lda;
+
+    /* arrayB */
+	BBLAS_Complex64_t **arrayB =
+		(BBLAS_Complex64_t**) malloc(sizeof(BBLAS_Complex64_t*)*batch_count);
+	for (i = 0; i < batch_count; i++)
+	{
+		arrayB[i] = (BBLAS_Complex64_t*) malloc(sizeof(BBLAS_Complex64_t)*k*n);
+		random_mat(k, n, arrayB[i]);
+	}
+	zgemm_example->arrayB = arrayB;
+	if (zgemm_example->transB == BblasNoTrans)
+	{
+		ldb = k;
+	}
+	else
+	{
+		ldb = n;
+	}
+	zgemm_example->ldb = ldb;
+
+    /* arrayC */
+	BBLAS_Complex64_t **arrayC =
+		(BBLAS_Complex64_t**) malloc(sizeof(BBLAS_Complex64_t*)*batch_count);
+	for (i = 0; i < batch_count; i++)
+	{
+		arrayC[i] = (BBLAS_Complex64_t*) malloc(sizeof(BBLAS_Complex64_t)*m*n);
+		random_mat(m, n, arrayC[i]);
+	}
+	zgemm_example->arrayC = arrayC;
+	zgemm_example->ldc = m;
+}
+
+void set_params_variable_zgemm(struct zgemm_batchv_example *zgemm_example)
+{    
+    int i;
+    int batch_count;
+    int lda;
+    int ldb;
+ 
+    batch_count = rand() % 50;
+    zgemm_example->batch_count = batch_count;
+	for (i = 0; i < batch_count; i++)
+	{	
+	    zgemm_example->transA[i] = rand() % 3+111;
+	    zgemm_example->transB[i] = rand() % 3+111;
+	    zgemm_example->m[i] = rand() % 200;
+	    zgemm_example->n[i] = rand() % 200;
+	    zgemm_example->k[i] = rand() % 200;
+	    zgemm_example->alpha[i] = randz();
+	    zgemm_example->beta[i] = randz();
+    }
+
+    /* arrayA */
+	BBLAS_Complex64_t **arrayA =
+		(BBLAS_Complex64_t**) malloc(sizeof(BBLAS_Complex64_t*)*batch_count);
+	for (i = 0; i < batch_count; i++)
+	{
+		arrayA[i] = (BBLAS_Complex64_t*) malloc(sizeof(BBLAS_Complex64_t)*
+                zgemm_example->m[i]*zgemm_example->k[i]);
+		random_mat(zgemm_example->m[i], zgemm_example->k[i], arrayA[i]);
+	    if (zgemm_example->transA[i] == BblasNoTrans)
+	    {
+		    lda = zgemm_example->m[i];
+	    }
+	    else
+	    {
+		    lda = zgemm_example->k[i];
+	    }
+	    zgemm_example->lda[i] = lda;
+	}
+	zgemm_example->arrayA = arrayA;
+
+    /* arrayB */
+	BBLAS_Complex64_t **arrayB =
+		(BBLAS_Complex64_t**) malloc(sizeof(BBLAS_Complex64_t*)*batch_count);
+	for (i = 0; i < batch_count; i++)
+	{
+		arrayB[i] = (BBLAS_Complex64_t*) malloc(sizeof(BBLAS_Complex64_t)*
+                zgemm_example->k[i]*zgemm_example->n[i]);
+		random_mat(zgemm_example->k[i], zgemm_example->n[i], arrayB[i]);
+        if (zgemm_example->transB[i] == BblasNoTrans)
+	    {
+		    ldb = zgemm_example->k[i];
+	    }
+	    else
+	    {
+		    ldb = zgemm_example->n[i];
+	    }
+	    zgemm_example->ldb[i] = ldb;
+	}
+	zgemm_example->arrayB = arrayB;
+	
+    /* arrayC */
+	BBLAS_Complex64_t **arrayC =
+		(BBLAS_Complex64_t**) malloc(sizeof(BBLAS_Complex64_t*)*batch_count);
+	for (i = 0; i < batch_count; i++)
+	{
+		arrayC[i] = (BBLAS_Complex64_t*) malloc(sizeof(BBLAS_Complex64_t)*
+                zgemm_example->m[i]*zgemm_example->n[i]);
+		random_mat(zgemm_example->m[i], zgemm_example->n[i], arrayC[i]);
+	    zgemm_example->ldc[i] = zgemm_example->m[i];
+	}
+	zgemm_example->arrayC = arrayC;
+
+}
