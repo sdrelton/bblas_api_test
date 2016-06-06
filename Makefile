@@ -6,7 +6,7 @@ BBLAS_SRC_LIST   = batchf_zgemv.c batchv_zgemv.c batchg_zgemv.c batch_zgemv.c \
 
 BBLAS_SRC=$(addprefix $(BBLAS_SRC_DIR)/, $(BBLAS_SRC_LIST))
 
-TEST_SRC      =  random_gen.c test_gemv.c test_gemm.c
+TEST_SRC      =  random_gen.c
 TEST_SRC_LIST=$(addprefix $(BBLAS_TEST_DIR)/, $(TEST_SRC))
 
 SOURCES       = $(BBLAS_SRC) $(TEST_SRC_LIST)
@@ -15,11 +15,17 @@ OBJECTS_Z     = $(SOURCES_Z:.c=.o)
 
 all:
 	$(MAKE) testzgemv
+	$(MAKE) testzgemm
 
 .DEFAULT_GOAL := all
 
 testzgemv: $(OBJECTS_Z)
-	$(CC) $(OBJECTS_Z) $(LDFLAGS)   -o $(BBLAS_TEST_DIR)/$@
+	$(CC) $(CFLAGS) $(DEPS) $(BBLAS_TEST_DIR)/test_gemv.c -o $(BBLAS_TEST_DIR)/test_gemv.o
+	$(CC) $(OBJECTS_Z) $(BBLAS_TEST_DIR)/test_gemv.o $(LDFLAGS)   -o $(BBLAS_TEST_DIR)/$@
+
+testzgemm: $(OBJECTS_Z)
+	$(CC) $(CFLAGS) $(DEPS) $(BBLAS_TEST_DIR)/test_gemm.c -o $(BBLAS_TEST_DIR)/test_gemm.o
+	$(CC) $(OBJECTS_Z) $(BBLAS_TEST_DIR)/test_gemm.o $(LDFLAGS)   -o $(BBLAS_TEST_DIR)/$@
 
 .c.o:
 	$(CC) $(CFLAGS) $(DEPS) $<   -o $@
@@ -27,3 +33,4 @@ testzgemv: $(OBJECTS_Z)
 clean:
 	rm */*.o
 	rm */testzgemv
+	rm */testzgemm
