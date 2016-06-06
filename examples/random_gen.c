@@ -207,15 +207,15 @@ void set_params_fixed_zgemm(struct zgemm_batchf_example *zgemm_example)
     int lda;
     int ldb;
  
-	batch_count = rand() % 50;
+	batch_count = rand() % 5;
 	zgemm_example->batch_count = batch_count;
 	zgemm_example->transA = rand() % 3+111;
 	zgemm_example->transB = rand() % 3+111;
-	m = rand() % 200;
+	m = rand() % 20;
 	zgemm_example->m = m;
-	n = rand() % 200;
+	n = rand() % 20;
 	zgemm_example->n = n;
-	k = rand() % 200;
+	k = rand() % 20;
 	zgemm_example->k = k;
 	zgemm_example->alpha = randz();
 	zgemm_example->beta = randz();
@@ -277,15 +277,15 @@ void set_params_variable_zgemm(struct zgemm_batchv_example *zgemm_example)
     int lda;
     int ldb;
  
-    batch_count = rand() % 50;
+    batch_count = rand() % 5;
     zgemm_example->batch_count = batch_count;
 	for (i = 0; i < batch_count; i++)
 	{	
 	    zgemm_example->transA[i] = rand() % 3+111;
 	    zgemm_example->transB[i] = rand() % 3+111;
-	    zgemm_example->m[i] = rand() % 200;
-	    zgemm_example->n[i] = rand() % 200;
-	    zgemm_example->k[i] = rand() % 200;
+	    zgemm_example->m[i] = rand() % 20;
+	    zgemm_example->n[i] = rand() % 20;
+	    zgemm_example->k[i] = rand() % 20;
 	    zgemm_example->alpha[i] = randz();
 	    zgemm_example->beta[i] = randz();
     }

@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
 	/* Creat one variable size batch for variable API */
 	struct zgemm_batchv_example *zgemmv_example =
 		(struct zgemm_batchv_example*) malloc(sizeof(struct zgemm_batchv_example));
-	set_params_variable_zgemm(zgemmv_example);
+    set_params_variable_zgemm(zgemmv_example);
 
 	printf("Finished creating inputs, running each API...\n");
 
@@ -130,7 +130,7 @@ int main(int argc, char *argv[])
 		group_arrayB[i+zgemmf_example->batch_count] = zgemmf_example2->arrayB[i];
 	}
     
-    /* ArrayB */
+    /* ArrayC */
 	BBLAS_Complex64_t* group_arrayC[zgemmf_example->batch_count + zgemmf_example2->batch_count];
 	for (i = 0; i < zgemmf_example->batch_count; i++)
 	{
