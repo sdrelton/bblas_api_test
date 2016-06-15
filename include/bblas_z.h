@@ -51,7 +51,7 @@ void batchf_zgemm(
     const BBLAS_Complex64_t **arrayA, const int lda,
     const BBLAS_Complex64_t **arrayB,
     const int ldb, const BBLAS_Complex64_t beta,
-    BBLAS_Complex64_t **arrayC, const int ldc, 
+    BBLAS_Complex64_t **arrayC, const int ldc,
     const int batch_count, int *info);
 
 void batchg_zgemm(
@@ -119,6 +119,47 @@ void batchv_zgemv(
 	const BBLAS_Complex64_t *beta,
 	BBLAS_Complex64_t **arrayy, const int *incy,
 	const int batch_count, int* info);
+
+/*
+ * Declarations of level 1 BATCH BLAS - alphabetical order
+ */
+void batch_zdotu_sub(
+		  const int *n,
+		  BBLAS_Complex64_t const * const * x,
+		  const int *incx,
+		  BBLAS_Complex64_t const * const * y,
+		  const int *incy,
+		  BBLAS_Complex64_t *dotu,
+		  const int batch_count, const enum BBLAS_OPTS batch_opts,
+		  int * info);
+
+void batchf_zdotu_sub(
+		  const int n,
+		  BBLAS_Complex64_t const * const * x,
+		  const int incx,
+		  BBLAS_Complex64_t const * const * y,
+		  const int incy,
+		  BBLAS_Complex64_t *dotu,
+		  const int batch_count, int * info);
+
+void batchg_zdotu_sub(
+		  const int *n,
+		  BBLAS_Complex64_t const * const * x,
+		  const int *incx,
+		  BBLAS_Complex64_t const * const * y,
+		  const int *incy,
+		  BBLAS_Complex64_t *dotu,
+		  const int group_count, const int *group_size,
+		  int* info);
+
+void batchv_zdotu_sub(
+		  const int *n,
+		  BBLAS_Complex64_t const * const * x,
+		  const int *incx,
+		  BBLAS_Complex64_t const * const * y,
+		  const int *incy,
+		  BBLAS_Complex64_t *dotu,
+		  const int batch_count, int* info);
 
 /*
  * Error handler

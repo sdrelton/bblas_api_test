@@ -47,7 +47,7 @@ void batch_zgemv(
 					 batch_count, info);
 	}
 	else if (batch_opts == BBLAS_VARIABLE)
-	{
+	  {
 		/* Call variable size code */
 		batchv_zgemv(trans,
 					 m, n,

@@ -9,37 +9,61 @@
 ##############################################################
 
 
+
+
 # BBLAS Source Code
-BBLAS_BASE_DIR  = /home/pedro/bblas_api_test
+BBLAS_BASE_DIR  = /home/mawussi/NLAFET/bblas_api_test
 BBLAS_SRC_DIR   = $(BBLAS_BASE_DIR)/src
 BBLAS_TEST_DIR  = $(BBLAS_BASE_DIR)/examples
+BBLAS_OMP_DIR   = $(BBLAS_TEST_DIR)/bblas_omp
+BBLAS_MKL_DIR   = $(BBLAS_TEST_DIR)/bblas_mkl
+BBLAS_CUDA_DIR  = $(BBLAS_TEST_DIR)/bblas_cuda
+BBLAS_MAGMA_DIR = $(BBLAS_TEST_DIR)/bblas_magma
 
-DEPS            = -I$(BBLAS_BASE_DIR)/include -I$(BBLAS_TEST_DIR)
-LDFLAGS         =
+DEPS            = -I$(BBLAS_BASE_DIR)/include -I$(BBLAS_TEST_DIR) -I$(BBLAS_MKL_DIR) -I$(BBLAS_OMP_DIR) -I$(BBLAS_CUDA_DIR) -I$(BBLAS_MAGMA_DIR)
+LDFLAGS         = -fopenmp
 
 # Compiler
-CC = gcc
-CFLAGS = -c -std=c99 -DADD_ -Wall -pedantic
-DEPS   += -m64
+CC = gcc-4.9
+CFLAGS = -c -std=c99 -DADD_ -Wall -pedantic -fopenmp -g
+CFLAGS += -DBBLAS_WITH_CUBLAS
+CFLAGS += -DBBLAS_WITH_MAGMA
+CFLAGS += -DBBLAS_WITH_MKL
+DEPS   += -m64 -I${MKLROOT}/include
 # BLAS libraries
-#BLAS_LIB        = -Wl,--start-group /opt/intel/compilers_and_libraries_2016.2.181/linux/mkl/lib/intel64/libmkl_intel_lp64.a /opt/intel/compilers_and_libraries_2016.2.181/linux/mkl/lib/intel64/libmkl_core.a /opt/intel/compilers_and_libraries_2016.2.181/linux/mkl/lib/intel64/libmkl_gnu_thread.a -Wl,--end-group -lpthread -lm -ldl
-BLAS_LIB        = -lblas 
+BLAS_LIB        =  -Wl,--start-group /opt/intel/compilers_and_libraries_2016.2.181/linux/mkl/lib/intel64/libmkl_intel_lp64.a /opt/intel/compilers_and_libraries_2016.2.181/linux/mkl/lib/intel64/libmkl_core.a /opt/intel/compilers_and_libraries_2016.2.181/linux/mkl/lib/intel64/libmkl_gnu_thread.a -Wl,--end-group -lpthread -lm -ldl 
 
 # CBLAS libraries
-CBLAS_DIR       = /home/pedro/BBLAS-Manc/install
-CBLAS_LIB       = -lcblas #-L$(CBLAS_DIR)/lib -lcblas
+CBLAS_DIR       = 
+CBLAS_LIB       = -L$(CBLAS_DIR)/lib
 CBLAS_INC       = -I$(CBLAS_DIR)/include
 
 # LAPACK libraries
-LAPACK_DIR      = /home/pedro/BBLAS-Manc/install
-LAPACK_LIB      = -L$(LAPACK_DIR)/lib -llapack
+LAPACK_DIR      = 
+LAPACK_LIB      = -L$(LAPACK_DIR)/lib
 LAPACK_INC      = -I$(LAPACK_DIR)/include
 
 # LAPACKE libraries
-LAPACKE_DIR     = /home/pedro/BBLAS-Manc/install
-LAPACKE_LIB     = -L$(LAPACKE_DIR)/lib -llapacke 
+LAPACKE_DIR     = /home/mawussi/NLAFET/BBLAS-Manc/install
+LAPACKE_LIB     = -L$(LAPACKE_DIR)/lib -llapacke -llapack
 LAPACKE_INC     = -I$(LAPACKE_DIR)/include
+
+
+# CUDA libraries
+CUDA_DIR        = /usr/local/cuda
+CUDA_LIB        = -L$(CUDA_DIR)/lib64 -lcudart -lcublas
+CUDA_INC        = -I$(CUDA_DIR)/include
+DEPS           += $(CUDA_INC)
+LDFLAGS        += $(CUDA_LIB)
+
+# CUDA libraries
+MAGMA_DIR        = /home/mawussi/work/trunk
+MAGMA_LIB        = -L$(MAGMA_DIR)/lib -lmagma
+MAGMA_INC        = -I$(MAGMA_DIR)/include
+DEPS           += $(MAGMA_INC)
+LDFLAGS        += $(MAGMA_LIB)
 
 DEPS += $(LAPACKE_INC) $(LAPACK_INC) $(CBLAS_INC)
 
-LDFLAGS += $(LAPACKE_LIB) $(LAPACK_LIB) $(CBLAS_LIB) $(BLAS_LIB) -ltmglib -lm -lgfortran
+LDFLAGS += $(LAPACKE_LIB) $(LAPACK_LIB) $(CBLAS_LIB) $(BLAS_LIB) -lm -lgfortran
+
