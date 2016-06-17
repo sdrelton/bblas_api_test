@@ -270,6 +270,84 @@ void set_params_fixed_zgemm(struct zgemm_batchf_example *zgemm_example)
 	zgemm_example->ldc = m;
 }
 
+// One pointer (op) approach
+
+void set_params_fixed_zgemm_op(struct zgemm_batchf_example_op *zgemm_example)
+{
+    int i;
+    int batch_count;
+    int m;
+    int n;
+    int k;
+    int lda;
+    int ldb;
+    enum BBLAS_TRANS transA;
+    enum BBLAS_TRANS transB;
+ 
+	batch_count = rand() % 5;
+	zgemm_example->batch_count = batch_count;
+    transA = BblasNoTrans;
+    zgemm_example->transA = transA;
+	transB = BblasNoTrans;
+    zgemm_example->transB = transB;
+	m = rand() % 20;
+	zgemm_example->m = m;
+	n = rand() % 20;
+	zgemm_example->n = n;
+	k = rand() % 20;
+	zgemm_example->k = k;
+	zgemm_example->alpha = randz();
+	zgemm_example->beta = randz();
+
+    /* arrayA */
+	BBLAS_Complex64_t *arrayA =
+		(BBLAS_Complex64_t*) malloc(sizeof(BBLAS_Complex64_t)*batch_count*m*k);
+	for (i = 0; i < batch_count; i++)
+	{
+		random_mat(m, k, &arrayA[i*m*k]);
+	}
+	zgemm_example->arrayA = arrayA;
+	if (zgemm_example->transA == BblasNoTrans)
+	{
+		lda = m;
+	}
+	else
+	{
+		lda = k;
+	}
+	zgemm_example->lda = lda;
+
+    /* arrayB */
+	BBLAS_Complex64_t *arrayB =
+		(BBLAS_Complex64_t*) malloc(sizeof(BBLAS_Complex64_t*)*batch_count*k*n);
+	for (i = 0; i < batch_count; i++)
+	{
+		random_mat(k, n, &arrayB[i*k*n]);
+	}
+	zgemm_example->arrayB = arrayB;
+	if (zgemm_example->transB == BblasNoTrans)
+	{
+		ldb = k;
+	}
+	else
+	{
+		ldb = n;
+	}
+	zgemm_example->ldb = ldb;
+
+    /* arrayC */
+	BBLAS_Complex64_t *arrayC =
+		(BBLAS_Complex64_t*) malloc(sizeof(BBLAS_Complex64_t*)*batch_count*m*n);
+	for (i = 0; i < batch_count; i++)
+	{
+		random_mat(m, n, &arrayC[i*m*n]);
+	}
+	zgemm_example->arrayC = arrayC;
+	zgemm_example->ldc = m;
+}
+
+
+
 void set_params_variable_zgemm(struct zgemm_batchv_example *zgemm_example)
 {    
     int i;

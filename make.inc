@@ -8,11 +8,8 @@
 # Univ. of Tennessee
 ##############################################################
 
-
-
-
 # BBLAS Source Code
-BBLAS_BASE_DIR  = /home/mawussi/NLAFET/bblas_api_test
+BBLAS_BASE_DIR  = /home/pedro/bblas_api_test
 BBLAS_SRC_DIR   = $(BBLAS_BASE_DIR)/src
 BBLAS_TEST_DIR  = $(BBLAS_BASE_DIR)/examples
 BBLAS_OMP_DIR   = $(BBLAS_TEST_DIR)/bblas_omp
@@ -24,14 +21,14 @@ DEPS            = -I$(BBLAS_BASE_DIR)/include -I$(BBLAS_TEST_DIR) -I$(BBLAS_MKL_
 LDFLAGS         = -fopenmp
 
 # Compiler
-CC = gcc-4.9
+CC = gcc
 CFLAGS = -c -std=c99 -DADD_ -Wall -pedantic -fopenmp -g
 CFLAGS += -DBBLAS_WITH_CUBLAS
 CFLAGS += -DBBLAS_WITH_MAGMA
 CFLAGS += -DBBLAS_WITH_MKL
 DEPS   += -m64 -I${MKLROOT}/include
 # BLAS libraries
-BLAS_LIB        =  -Wl,--start-group /opt/intel/compilers_and_libraries_2016.2.181/linux/mkl/lib/intel64/libmkl_intel_lp64.a /opt/intel/compilers_and_libraries_2016.2.181/linux/mkl/lib/intel64/libmkl_core.a /opt/intel/compilers_and_libraries_2016.2.181/linux/mkl/lib/intel64/libmkl_gnu_thread.a -Wl,--end-group -lpthread -lm -ldl 
+BLAS_LIB        =  -Wl,--start-group /opt/intel/compilers_and_libraries_2016/linux/mkl/lib/intel64/libmkl_intel_lp64.a /opt/intel/compilers_and_libraries_2016/linux/mkl/lib/intel64/libmkl_core.a /opt/intel/compilers_and_libraries_2016/linux/mkl/lib/intel64/libmkl_gnu_thread.a -Wl,--end-group -lpthread -lm -ldl 
 
 # CBLAS libraries
 CBLAS_DIR       = 
@@ -44,7 +41,7 @@ LAPACK_LIB      = -L$(LAPACK_DIR)/lib
 LAPACK_INC      = -I$(LAPACK_DIR)/include
 
 # LAPACKE libraries
-LAPACKE_DIR     = /home/mawussi/NLAFET/BBLAS-Manc/install
+LAPACKE_DIR     = /home/pedro/BBLAS-Manc/install
 LAPACKE_LIB     = -L$(LAPACKE_DIR)/lib -llapacke -llapack
 LAPACKE_INC     = -I$(LAPACKE_DIR)/include
 
@@ -57,11 +54,11 @@ DEPS           += $(CUDA_INC)
 LDFLAGS        += $(CUDA_LIB)
 
 # CUDA libraries
-MAGMA_DIR        = /home/mawussi/work/trunk
-MAGMA_LIB        = -L$(MAGMA_DIR)/lib -lmagma
-MAGMA_INC        = -I$(MAGMA_DIR)/include
-DEPS           += $(MAGMA_INC)
-LDFLAGS        += $(MAGMA_LIB)
+#MAGMA_DIR        = /home/mawussi/work/trunk
+#MAGMA_LIB        = -L$(MAGMA_DIR)/lib -lmagma
+#MAGMA_INC        = -I$(MAGMA_DIR)/include
+#DEPS           += $(MAGMA_INC)
+#LDFLAGS        += $(MAGMA_LIB)
 
 DEPS += $(LAPACKE_INC) $(LAPACK_INC) $(CBLAS_INC)
 

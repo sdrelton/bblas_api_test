@@ -75,6 +75,18 @@ void batchv_zgemm(
     BBLAS_Complex64_t **arrayC, const int *ldc, 
     const int batch_count, int *info);
 
+// One pointer (op) approach
+
+void batchf_zgemm_op(
+    const enum BBLAS_TRANS transA, const enum BBLAS_TRANS transB,
+    const int M,  const int N, const int K,
+    const BBLAS_Complex64_t alpha,
+    const BBLAS_Complex64_t *arrayA, const int lda,
+    const BBLAS_Complex64_t *arrayB,
+    const int ldb, const BBLAS_Complex64_t beta,
+    BBLAS_Complex64_t *arrayC, const int ldc,
+    const int batch_count, int *info);
+
 /*
  * Declarations of level 2 BATCH BLAS - alphabetical order
  */

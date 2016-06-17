@@ -1,8 +1,8 @@
 include ./make.inc
 
 BBLAS_SRC_LIST   = batchf_zgemv.c batchv_zgemv.c batchg_zgemv.c batch_zgemv.c \
-				   batchf_zgemm.c batchv_zgemm.c batchg_zgemm.c batch_zgemm.c \
-			           batchf_zdotu_sub.c batchv_zdotu_sub.c batchg_zdotu_sub.c batch_zdotu_sub.c \
+				   batchf_zgemm.c batchv_zgemm.c batchg_zgemm.c batch_zgemm.c batchf_zgemm_op.c \
+			       batchf_zdotu_sub.c batchv_zdotu_sub.c batchg_zdotu_sub.c batch_zdotu_sub.c \
 		           xerbla_batch.c
 
 BBLAS_SRC=$(addprefix $(BBLAS_SRC_DIR)/, $(BBLAS_SRC_LIST))
