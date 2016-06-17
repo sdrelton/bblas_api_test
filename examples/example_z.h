@@ -41,10 +41,10 @@ struct zgemm_batchf_example_op {
     enum BBLAS_TRANS transB;
     int m; int n; int k;
     BBLAS_Complex64_t alpha;
-    BBLAS_Complex64_t **arrayA; int lda;
-    BBLAS_Complex64_t **arrayB; int ldb;  
+    BBLAS_Complex64_t *arrayA; int lda;
+    BBLAS_Complex64_t *arrayB; int ldb;  
     BBLAS_Complex64_t beta;
-    BBLAS_Complex64_t **arrayC; int ldc; 
+    BBLAS_Complex64_t *arrayC; int ldc; 
     int batch_count;
 };
 
