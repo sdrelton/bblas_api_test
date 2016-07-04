@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
 
 	printf("Finished creating inputs, running each API...\n");
 
-	int *infof = malloc(sizeof(int)*zgemvf_example->batch_count);
+	int infof = -1;
 	int *infov = malloc(sizeof(int)*zgemvv_example->batch_count);
 
 	printf("Computing with first API...\n");
@@ -119,7 +119,7 @@ int main(int argc, char *argv[])
 	int group_incy[2] = {zgemvf_example->incy, zgemvf_example2->incy};
 	int group_count = 2;
 	int group_size[2] = {zgemvf_example->batch_count, zgemvf_example2->batch_count};
-	int infog[group_size[0] + group_size[1]];
+	int infog[2];
 	/*
 	  batchg_zgemv(
 	  const enum BBLAS_TRANS *trans,
@@ -158,7 +158,7 @@ int main(int argc, char *argv[])
 		(BBLAS_Complex64_t**) zgemvf_example->arrayy,
 		(const int*) &zgemvf_example->incy,
 		(const int) zgemvf_example->batch_count, (const enum BBLAS_OPTS) batch_opts,
-		infof);
+		&infof);
 
 	batch_opts = BBLAS_VARIABLE;
 

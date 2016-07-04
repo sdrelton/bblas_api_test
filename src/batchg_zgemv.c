@@ -63,13 +63,7 @@ void batchg_zgemv(
 			arrayx+offset, incx[group_iter],
 			beta[group_iter],
 			arrayy+offset, incy[group_iter],
-			group_size[group_iter], info+offset);
-
-        /* Successful */
-		for(i = offset; i < end_of_group; i++)
-		{
-			info[i] = BBLAS_SUCCESS;
-		}
+			group_size[group_iter], info[group_iter]);
 
 		/* Update offset */
 		offset += group_size[group_iter];

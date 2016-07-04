@@ -23,7 +23,7 @@ void batchf_zgemv(
 	const BBLAS_Complex64_t **arrayx, const int incx,
 	const BBLAS_Complex64_t beta,
 	BBLAS_Complex64_t **arrayy, const int incy,
-	const int batch_count, int* info)
+	const int batch_count, int info)
 {
 	/* Local variables */
 	int first_index = 0;
@@ -41,55 +41,37 @@ void batchf_zgemv(
 		(trans != BblasConjTrans))
 	{
 		xerbla_batch(func_name, BBLAS_ERR_TRANS, first_index);
-		for (batch_iter = 0; batch_iter < batch_count; batch_iter++)
-		{
-			info[batch_iter] = BBLAS_ERR_TRANS;
-		}
+		info = BBLAS_ERR_TRANS;
 	}
 
 	if (m < 0)
 	{
 		xerbla_batch(func_name, BBLAS_ERR_M, first_index);
-		for (batch_iter = 0; batch_iter < batch_count; batch_iter++)
-		{
-			info[batch_iter] = BBLAS_ERR_M;
-		}
+		info = BBLAS_ERR_M;
 	}
 
 	if (n < 0)
 	{
 		xerbla_batch(func_name, BBLAS_ERR_N, first_index);
-		for (batch_iter = 0; batch_iter < batch_count; batch_iter++)
-		{
-			info[batch_iter] = BBLAS_ERR_N;
-		}
+		info = BBLAS_ERR_N;
 	}
 
 	/* Column major */
 	if ((lda < 1) && (lda < m))
 	{
 		xerbla_batch(func_name, BBLAS_ERR_LDA, first_index);
-		for (batch_iter = 0; batch_iter < batch_count; batch_iter++)
-		{
-			info[batch_iter] = BBLAS_ERR_LDA;
-		}
+		info = BBLAS_ERR_LDA;
 	}
 
 	if (incx < 1)
 	{
 		xerbla_batch(func_name, BBLAS_ERR_INCX, first_index);
-		for (batch_iter = 0; batch_iter < batch_count; batch_iter++)
-		{
-			info[batch_iter] = BBLAS_ERR_INCX;
-		}
+		info = BBLAS_ERR_INCX;
 	}
 	if (incy < 1)
 	{
 		xerbla_batch(func_name, BBLAS_ERR_INCY, first_index);
-		for (batch_iter = 0; batch_iter < batch_count; batch_iter++)
-		{
-			info[batch_iter] = BBLAS_ERR_INCY;
-		}
+		info = BBLAS_ERR_INCY;
 	}
 
 	/* Call CBLAS */
@@ -104,8 +86,8 @@ void batchf_zgemv(
 			arrayx[batch_iter], incx,
 			CBLAS_SADDR( beta ),
 			arrayy[batch_iter], incy);
-		/* Successful */
-		info[batch_iter] = BBLAS_SUCCESS;
 	} /* End fixed size for loop */
+	/* Successful */
+	info = BBLAS_SUCCESS;
 }
 #undef COMPLEX

@@ -44,7 +44,7 @@ void batch_zgemv(
 					 arrayx, incx[0],
 					 beta[0],
 					 arrayy, incy[0],
-					 batch_count, info);
+					 batch_count, info[0]);
 	}
 	else if (batch_opts == BBLAS_VARIABLE)
 	  {

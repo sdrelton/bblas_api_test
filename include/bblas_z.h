@@ -59,9 +59,9 @@ void batchg_zgemm(
     const int *M,  const int *N, const int *K,
     const BBLAS_Complex64_t *alpha,
     const BBLAS_Complex64_t **arrayA, const int *lda,
-    const BBLAS_Complex64_t **arrayB, const int *ldb, 
+    const BBLAS_Complex64_t **arrayB, const int *ldb,
     const BBLAS_Complex64_t *beta,
-    BBLAS_Complex64_t **arrayC, const int *ldc, 
+    BBLAS_Complex64_t **arrayC, const int *ldc,
 	const int group_count, const int *group_size,
     int *info);
 
@@ -70,9 +70,9 @@ void batchv_zgemm(
     const int *M,  const int *N, const int *K,
     const BBLAS_Complex64_t *alpha,
     const BBLAS_Complex64_t **arrayA, const int *lda,
-    const BBLAS_Complex64_t **arrayB, const int *ldb, 
+    const BBLAS_Complex64_t **arrayB, const int *ldb,
     const BBLAS_Complex64_t *beta,
-    BBLAS_Complex64_t **arrayC, const int *ldc, 
+    BBLAS_Complex64_t **arrayC, const int *ldc,
     const int batch_count, int *info);
 
 // One pointer (stride) approach
@@ -109,7 +109,7 @@ void batchf_zgemv(
 	const BBLAS_Complex64_t **arrayx, const int incx,
 	const BBLAS_Complex64_t beta,
 	BBLAS_Complex64_t **arrayy, const int incy,
-	const int batch_count, int* info);
+	const int batch_count, int info);
 
 void batchg_zgemv(
 	const enum BBLAS_TRANS *trans,
