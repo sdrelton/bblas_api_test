@@ -75,16 +75,16 @@ void batchv_zgemm(
     BBLAS_Complex64_t **arrayC, const int *ldc, 
     const int batch_count, int *info);
 
-// One pointer (op) approach
+// One pointer (stride) approach
 
-void batchf_zgemm_op(
+void batchf_zgemm_stride(
     const enum BBLAS_TRANS transA, const enum BBLAS_TRANS transB,
     const int M,  const int N, const int K,
     const BBLAS_Complex64_t alpha,
-    const BBLAS_Complex64_t *arrayA, const int lda,
-    const BBLAS_Complex64_t *arrayB,
-    const int ldb, const BBLAS_Complex64_t beta,
-    BBLAS_Complex64_t *arrayC, const int ldc,
+    const BBLAS_Complex64_t *arrayA, const int lda, const int strideA,
+    const BBLAS_Complex64_t *arrayB, const int ldb, const int strideB,
+    const BBLAS_Complex64_t beta,
+    BBLAS_Complex64_t *arrayC, const int ldc, const int strideC,
     const int batch_count, int *info);
 
 /*
@@ -172,11 +172,6 @@ void batchv_zdotu_sub(
 		  const int *incy,
 		  BBLAS_Complex64_t *dotu,
 		  const int batch_count, int* info);
-
-/*
- * Error handler
- */
-int xerbla_batch(char *func_name, int error, int subproblem_ind);
 
 #undef COMPLEX
 #endif /* BBLAS_Z_H */

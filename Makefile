@@ -1,17 +1,17 @@
 include ./make.inc
 
+BBLAS_UTILS      = $(BBLAS_UTILS_DIR)/xerbla_batch.c
 BBLAS_SRC_LIST   = batchf_zgemv.c batchv_zgemv.c batchg_zgemv.c batch_zgemv.c \
-				   batchf_zgemm.c batchv_zgemm.c batchg_zgemm.c batch_zgemm.c batchf_zgemm_op.c \
-			       batchf_zdotu_sub.c batchv_zdotu_sub.c batchg_zdotu_sub.c batch_zdotu_sub.c \
-		           xerbla_batch.c
+				   batchf_zgemm.c batchv_zgemm.c batchg_zgemm.c batch_zgemm.c batchf_zgemm_stride.c \
+			       batchf_zdotu_sub.c batchv_zdotu_sub.c batchg_zdotu_sub.c batch_zdotu_sub.c
 
 BBLAS_SRC=$(addprefix $(BBLAS_SRC_DIR)/, $(BBLAS_SRC_LIST))
 
-TEST_SRC      =  random_gen.c
-TEST_SRC_LIST=$(addprefix $(BBLAS_TEST_DIR)/, $(TEST_SRC))
+TEST_SRC      = testing_utils.c
+TEST_SRC_LIST = $(addprefix $(BBLAS_TEST_DIR)/, $(TEST_SRC))
 
-SOURCES       = $(BBLAS_SRC) $(TEST_SRC_LIST)
-SOURCES_Z      = $(SOURCES)
+SOURCES       = $(BBLAS_UTILS) $(BBLAS_SRC) $(TEST_SRC_LIST)
+SOURCES_Z     = $(SOURCES)
 OBJECTS_Z     = $(SOURCES_Z:.c=.o)
 
 all:

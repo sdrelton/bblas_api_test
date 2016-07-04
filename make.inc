@@ -10,6 +10,7 @@
 
 # BBLAS Source Code
 BBLAS_BASE_DIR  = /home/pedro/bblas_api_test
+BBLAS_UTILS_DIR = $(BBLAS_BASE_DIR)/utils
 BBLAS_SRC_DIR   = $(BBLAS_BASE_DIR)/src
 BBLAS_TEST_DIR  = $(BBLAS_BASE_DIR)/examples
 BBLAS_OMP_DIR   = $(BBLAS_TEST_DIR)/bblas_omp

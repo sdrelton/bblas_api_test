@@ -22,7 +22,14 @@
  * BBLAS Headers
  */
 #include "bblas_z.h"
-#include "bblas_s.h"
-#include "bblas_d.h"
-#include "bblas_c.h"
+//#include "bblas_s.h"
+//#include "bblas_d.h"
+//#include "bblas_c.h"
+
+/*
+ * Error handler
+ */
+
+int xerbla_batch(char *func_name, int error, int subproblem_ind);
+
 #endif        //  #ifndef BBLAS_H

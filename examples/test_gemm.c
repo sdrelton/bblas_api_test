@@ -21,10 +21,10 @@ int main(int argc, char *argv[])
 		(struct zgemm_batchf_example*) malloc(sizeof(struct zgemm_batchf_example));
 	set_params_fixed_zgemm(zgemmf_example2);
 
-    /* Create one fixed batch for the one pointer (op) approach */
-    struct zgemm_batchf_example_op *zgemmf_example_op =
-		(struct zgemm_batchf_example_op*) malloc(sizeof(struct zgemm_batchf_example_op));
-	set_params_fixed_zgemm_op(zgemmf_example_op);
+    /* Create one fixed batch for the one pointer (stride) approach */
+    struct zgemm_batchf_example_stride *zgemmf_example_stride =
+		(struct zgemm_batchf_example_stride*) malloc(sizeof(struct zgemm_batchf_example_stride));
+	set_params_fixed_zgemm_stride(zgemmf_example_stride);
 
 	/* Creat one variable size batch for variable API */
 	struct zgemm_batchv_example *zgemmv_example =
@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
 	printf("Finished creating inputs, running each API...\n");
 
 	int *infof = malloc(sizeof(int)*1);
-	int *infof_op = malloc(sizeof(int)*1);
+	int *infof_stride = malloc(sizeof(int)*1);
 	int *infov = malloc(sizeof(int)*zgemmv_example->batch_count);
 
 	printf("Computing with first API...\n");
@@ -71,33 +71,36 @@ int main(int argc, char *argv[])
     /*
 	    Use one pointer approach for fixed size
 
-        batchf_zgemm_op(
+        batchf_zgemm_stride(
         const enum BBLAS_TRANS transA, const enum BBLAS_TRANS transB,
         const int M,  const int N, const int K,
         const BBLAS_Complex64_t alpha,
-        const BBLAS_Complex64_t *arrayA, const int lda,
-        const BBLAS_Complex64_t *arrayB, const int ldb, 
+        const BBLAS_Complex64_t *arrayA, const int lda, const int strideA,
+        const BBLAS_Complex64_t *arrayB, const int ldb, const int strideB, 
         const BBLAS_Complex64_t beta,
-        BBLAS_Complex64_t *arrayC, const int ldc, 
+        BBLAS_Complex64_t *arrayC, const int ldc, const int strideC, 
         const int batch_count, int info);
 	*/
 	
-    batchf_zgemm_op(
-		(const enum BBLAS_TRANS) zgemmf_example_op->transA,
-		(const enum BBLAS_TRANS) zgemmf_example_op->transB,
-		(const int) zgemmf_example_op->m,
-		(const int) zgemmf_example_op->n,
-		(const int) zgemmf_example_op->k,
-		(const BBLAS_Complex64_t) zgemmf_example_op->alpha,
-		(const BBLAS_Complex64_t *) zgemmf_example_op->arrayA,
-		(const int) zgemmf_example_op->lda,
-		(const BBLAS_Complex64_t *) zgemmf_example_op->arrayB,
-		(const int) zgemmf_example_op->ldb,
-		(const BBLAS_Complex64_t) zgemmf_example_op->beta,
-		(BBLAS_Complex64_t *) zgemmf_example_op->arrayC,
-		(const int) zgemmf_example_op->ldc,
-		(const int) zgemmf_example_op->batch_count, 
-        infof_op);
+    batchf_zgemm_stride(
+		(const enum BBLAS_TRANS) zgemmf_example_stride->transA,
+		(const enum BBLAS_TRANS) zgemmf_example_stride->transB,
+		(const int) zgemmf_example_stride->m,
+		(const int) zgemmf_example_stride->n,
+		(const int) zgemmf_example_stride->k,
+		(const BBLAS_Complex64_t) zgemmf_example_stride->alpha,
+		(const BBLAS_Complex64_t *) zgemmf_example_stride->arrayA,
+		(const int) zgemmf_example_stride->lda,
+		(const int) zgemmf_example_stride->strideA,
+		(const BBLAS_Complex64_t *) zgemmf_example_stride->arrayB,
+		(const int) zgemmf_example_stride->ldb,
+		(const int) zgemmf_example_stride->strideB,
+		(const BBLAS_Complex64_t) zgemmf_example_stride->beta,
+		(BBLAS_Complex64_t *) zgemmf_example_stride->arrayC,
+		(const int) zgemmf_example_stride->ldc,
+		(const int) zgemmf_example_stride->strideC,
+		(const int) zgemmf_example_stride->batch_count, 
+        infof_stride);
 
 	/*
         batchv_zgemm(

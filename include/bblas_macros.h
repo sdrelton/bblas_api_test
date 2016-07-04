@@ -41,6 +41,9 @@
 #define BBLAS_ERR_DIAG              -14 //!< Error in diag
 #define BBLAS_ERR_INCX              -15 //!< Error in incx
 #define BBLAS_ERR_INCY              -16 //!< Error in incy
+#define BBLAS_ERR_STRIDEA           -17 //!< Error in strideA
+#define BBLAS_ERR_STRIDEB           -17 //!< Error in strideB
+#define BBLAS_ERR_STRIDEC           -17 //!< Error in strideC
 /* Group error codes */
 #define BBLAS_ERR_GROUP_COUNT       -30 //!<Error in group_count
 #define BBLAS_ERR_GROUP_SIZE        -31 //!<Error in group_size

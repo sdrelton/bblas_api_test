@@ -34,17 +34,17 @@ struct zgemm_batchf_example {
     int batch_count;
 };
 
-// Struct for the one pointer (op) approach
+// Struct for the one pointer (stride) approach
 
-struct zgemm_batchf_example_op {
+struct zgemm_batchf_example_stride {
 	enum BBLAS_TRANS transA; 
     enum BBLAS_TRANS transB;
     int m; int n; int k;
     BBLAS_Complex64_t alpha;
-    BBLAS_Complex64_t *arrayA; int lda;
-    BBLAS_Complex64_t *arrayB; int ldb;  
+    BBLAS_Complex64_t *arrayA; int lda; int strideA;
+    BBLAS_Complex64_t *arrayB; int ldb; int strideB; 
     BBLAS_Complex64_t beta;
-    BBLAS_Complex64_t *arrayC; int ldc; 
+    BBLAS_Complex64_t *arrayC; int ldc; int strideC; 
     int batch_count;
 };
 
@@ -70,6 +70,6 @@ void set_params_variable_zgemv(struct zgemv_batchv_example *zgemv_example);
 
 void set_params_fixed_zgemm(struct zgemm_batchf_example *zgemm_example);
 
-void set_params_fixed_zgemm_op(struct zgemm_batchf_example_op *zgemm_example);
+void set_params_fixed_zgemm_stride(struct zgemm_batchf_example_stride *zgemm_example);
 
 void set_params_variable_zgemm(struct zgemm_batchv_example *zgemm_example);
