@@ -36,3 +36,30 @@ To clone the repository please use the following command.
 `git clone git@github.com:sdrelton/bblas_api_test.git`
 
 After this you will need to edit the make.inc file.
+
+If you are intending to use MKL BLAS and LAPACK functions then you need only change the line
+`BBLAS_BASE_DIR  = /home/srelton/NLAFET/bblas_api_test`
+to the directory in which you cloned the repository.
+
+Otherwise, in addition to the above change,
+please set the include paths and libraries of BLAS, CBLAS, LAPACK, and LAPACKE appropriately.
+
+Once this is done please type `make` and wait for the compilation to complete.
+
+## Examples
+In the examples directory there is a simple test of each API for the BBLAS versions of ZGEMM, ZGEMV, and ZDOT.
+For example, running *testzgemm* has the following output.
+
+`./testzgemm
+Testing gemm using some very simple tests.
+Creating inputs for testing grouped zgemm...
+Finished creating inputs, running each API...
+Computing with first API...
+Computing with second API...
+Computing with third API...
+Completed computations with all APIs...`
+
+If you inspect the code in *test_zgemm.c* then you can see how each of the three APIs is called.
+The actual implementations can be found in the *src* directory.
+
+Furthermore in the *utils* directory there is a *xerbla_batch.c* file to handle any errors in the calling sequence.
