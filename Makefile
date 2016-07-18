@@ -3,7 +3,7 @@ include ./make.inc
 BBLAS_UTILS      = $(BBLAS_UTILS_DIR)/xerbla_batch.c
 BBLAS_SRC_LIST   = batchf_zgemv.c batchv_zgemv.c batchg_zgemv.c batch_zgemv.c \
 				   batchf_zgemm.c batchv_zgemm.c batchg_zgemm.c batch_zgemm.c batchf_zgemm_stride.c \
-			       batchf_zdotu_sub.c batchv_zdotu_sub.c batchg_zdotu_sub.c batch_zdotu_sub.c
+			       batchf_zdotu.c batchv_zdotu.c batchg_zdotu.c batch_zdotu.c
 
 BBLAS_SRC=$(addprefix $(BBLAS_SRC_DIR)/, $(BBLAS_SRC_LIST))
 
@@ -15,21 +15,20 @@ SOURCES_Z     = $(SOURCES)
 OBJECTS_Z     = $(SOURCES_Z:.c=.o)
 
 all:
-	$(MAKE) testzgemv
-	$(MAKE) testzgemm
-	$(MAKE) test_zdotu_sub
+	$(MAKE) test_gemv
+	$(MAKE) test_gemm
+	$(MAKE) test_dotu
 .DEFAULT_GOAL := all
 
-test_zdotu_sub: $(OBJECTS_Z)
-	$(CC) $(CFLAGS) $(DEPS) $(BBLAS_TEST_DIR)/test_zdotu_sub.c -o $(BBLAS_TEST_DIR)/test_zdotu_sub.o
-	$(CC) $(OBJECTS_Z) $(BBLAS_TEST_DIR)/test_zdotu_sub.o $(LDFLAGS)   -o $(BBLAS_TEST_DIR)/$@
+test_dotu: $(OBJECTS_Z)
+	$(CC) $(CFLAGS) $(DEPS) $(BBLAS_TEST_DIR)/test_dotu.c -o $(BBLAS_TEST_DIR)/test_dotu.o
+	$(CC) $(OBJECTS_Z) $(BBLAS_TEST_DIR)/test_dotu.o $(LDFLAGS)   -o $(BBLAS_TEST_DIR)/$@
 
-
-testzgemv: $(OBJECTS_Z)
+test_gemv: $(OBJECTS_Z)
 	$(CC) $(CFLAGS) $(DEPS) $(BBLAS_TEST_DIR)/test_gemv.c -o $(BBLAS_TEST_DIR)/test_gemv.o
 	$(CC) $(OBJECTS_Z) $(BBLAS_TEST_DIR)/test_gemv.o $(LDFLAGS)   -o $(BBLAS_TEST_DIR)/$@
 
-testzgemm: $(OBJECTS_Z)
+test_gemm: $(OBJECTS_Z)
 	$(CC) $(CFLAGS) $(DEPS) $(BBLAS_TEST_DIR)/test_gemm.c -o $(BBLAS_TEST_DIR)/test_gemm.o
 	$(CC) $(OBJECTS_Z) $(BBLAS_TEST_DIR)/test_gemm.o $(LDFLAGS)   -o $(BBLAS_TEST_DIR)/$@
 
@@ -38,6 +37,6 @@ testzgemm: $(OBJECTS_Z)
 
 clean:
 	rm */*.o
-	rm */testzgemv
-	rm */testzgemm
-	rm */test_zdotu_sub
+	rm */test_gemv
+	rm */test_gemm
+	rm */test_dotu

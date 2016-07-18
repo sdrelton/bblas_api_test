@@ -1,7 +1,9 @@
 /**
  *
- * @file test_zdotu_sub.c
+ * @file test_dotu.c
  *
+ * @author Samuel  D. Relton
+ * @author Pedro   V. Lara
  * @author Mawussi Zounon
  * @date 2016-06-15
  * @precisions normal z -> c
@@ -30,7 +32,7 @@
 int main(int argc, char *argv[])
 {
   //Set parameters to initilize random value generation
-  __time_t t = NULL;
+  __time_t t;
   srand((unsigned) time(&t));
   int IONE     = 1;
   int ISEED[4] ={0,0,0,1};

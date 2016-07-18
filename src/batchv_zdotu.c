@@ -3,7 +3,9 @@
  *
  * Part of API test for Batched BLAS routines.
  *
- * @author Mawussi Zounon
+ * @author  Samuel  D. Relton
+ * @author  Pedro   V. Lara
+ * @author  Mawussi Zounon
  * @date 
  *
  * @precisions normal z -> c d s
