@@ -7,7 +7,7 @@
 
 # BBLAS Source Code
 #BBLAS_BASE_DIR  = ###change this###
-# exapmple ----> BBLAS_BASE_DIR  = /home/pedro/bblas_api_test
+# example ----> BBLAS_BASE_DIR  = /home/pedro/bblas_api_test
 BBLAS_UTILS_DIR = $(BBLAS_BASE_DIR)/utils
 BBLAS_SRC_DIR   = $(BBLAS_BASE_DIR)/src
 BBLAS_TEST_DIR  = $(BBLAS_BASE_DIR)/examples
