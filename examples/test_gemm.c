@@ -1,3 +1,14 @@
+/**
+ *
+ * @file test_gemm.c
+ *
+ * @author Samuel  D. Relton
+ * @author Pedro   V. Lara
+ * @author Mawussi Zounon
+ * @date 2016-06-15
+ * @precisions normal z -> c
+ *
+ **/
 #include "bblas_z.h"
 #include "example_z.h"
 #include <stdlib.h>
