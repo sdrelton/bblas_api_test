@@ -30,8 +30,6 @@ void batchg_zgemv(
 	char func_name[15] = "batchg_zgemv";
 	int group_iter = 0;
 	int offset = 0; // How many subproblems solved so far
-	int end_of_group = 0; // End of the current group
-	int i = 0;
 
 	/* Check group_count */
 	if (group_count < 0)
@@ -45,12 +43,8 @@ void batchg_zgemv(
 	{
 		if (group_size[group_iter] < 0)
 		{
-			end_of_group = end_of_group + group_size[group_iter];
 			xerbla_batch(func_name, BBLAS_ERR_GROUP_SIZE, group_iter);
-			for(i = offset; i < end_of_group; i++)
-			{
-				info[i] = BBLAS_ERR_GROUP_SIZE;
-			}
+			info[group_iter] = BBLAS_ERR_GROUP_SIZE;
 			continue;
 		}
 
