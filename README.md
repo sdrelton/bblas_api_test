@@ -18,7 +18,7 @@ a number of alternative APIs were suggested by the participants.
 
 ## Inside this repository
 The aim of this repository is to create sample code for the different APIs
-analyzed in the technical report *(FILL IN URL HERE)*.
+analyzed in the technical report at http://eprints.ma.man.ac.uk/2493/.
 Please use the repository in combination with the tech. report in order
 to fully understand the different approaches.
 
