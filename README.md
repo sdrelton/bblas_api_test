@@ -35,14 +35,12 @@ pointer-to-pointer approach used in the other functions.
 To clone the repository please use the following command.
 `git clone git@github.com:sdrelton/bblas_api_test.git`
 
-After this you will need to edit the make.inc file.
+After this you may need to edit the make.inc file.
 
-If you are intending to use MKL BLAS and LAPACK functions then you need only change the line
-`BBLAS_BASE_DIR  = /home/srelton/NLAFET/bblas_api_test`
-to the directory in which you cloned the repository.
+If you are intending to use MKL BLAS and LAPACK functions, which are installed in the default directories,
+then you should not need to change anything.
 
-Otherwise, in addition to the above change,
-please set the include paths and libraries of BLAS, CBLAS, LAPACK, and LAPACKE appropriately.
+Otherwise, please set the include paths and libraries of BLAS, CBLAS, LAPACK, and LAPACKE appropriately.
 
 Once this is done please type `make` and wait for the compilation to complete.
 
